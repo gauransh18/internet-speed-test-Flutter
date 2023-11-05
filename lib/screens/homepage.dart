@@ -96,40 +96,94 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Widget _buildRadialGauge(double value, String label) {
+  //   return SfRadialGauge(
+  //     title: GaugeTitle(
+  //       text: label,
+  //       textStyle: const TextStyle(
+  //         fontSize: 16.0,
+  //         fontWeight: FontWeight.bold,
+  //       ),
+  //     ),
+  //     axes: <RadialAxis>[
+  //       RadialAxis(
+  //         minimum: 0,
+  //         maximum: 100,
+  //         showLabels: false,
+  //         showTicks: false,
+  //         ranges: <GaugeRange>[
+  //           GaugeRange(
+  //             startValue: 0,
+  //             endValue: 100,
+  //             color: Colors.green,
+  //             startWidth: 10,
+  //             endWidth: 10,
+  //           ),
+  //         ],
+  //         pointers: <GaugePointer>[
+  //           NeedlePointer(
+  //             value: value,
+  //             enableAnimation: true,
+  //           ),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildRadialGauge(double value, String label) {
-    return SfRadialGauge(
-      title: GaugeTitle(
-        text: label,
-        textStyle: const TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.bold,
-        ),
+  return SfRadialGauge(
+    title: GaugeTitle(
+      text: label,
+      textStyle: const TextStyle(
+        fontSize: 20.0,
+        fontWeight: FontWeight.bold,
       ),
-      axes: <RadialAxis>[
-        RadialAxis(
-          minimum: 0,
-          maximum: 100,
-          showLabels: false,
-          showTicks: false,
-          ranges: <GaugeRange>[
-            GaugeRange(
-              startValue: 0,
-              endValue: 100,
-              color: Colors.green,
-              startWidth: 10,
-              endWidth: 10,
-            ),
-          ],
-          pointers: <GaugePointer>[
-            NeedlePointer(
-              value: value,
-              enableAnimation: true,
-            ),
-          ],
+    ),
+    axes: <RadialAxis>[
+      RadialAxis(
+        minimum: 0,
+        maximum: 100,
+        showLabels: false,
+        showTicks: false,
+        axisLineStyle: AxisLineStyle(
+          thickness: 0.2,
+          cornerStyle: CornerStyle.bothCurve,
+          color: Colors.blueGrey,
+          thicknessUnit: GaugeSizeUnit.factor,
         ),
-      ],
-    );
-  }
+        pointers: <GaugePointer>[
+          RangePointer(
+            value: value,
+            cornerStyle: CornerStyle.bothCurve,
+            width: 0.2,
+            sizeUnit: GaugeSizeUnit.factor,
+            gradient: const SweepGradient(
+              colors: <Color>[Colors.green, Colors.red],
+              stops: <double>[0.25, 0.75],
+            ),
+          ),
+          MarkerPointer(
+            value: value,
+            markerType: MarkerType.circle,
+            color: Colors.white,
+          )
+        ],
+        annotations: <GaugeAnnotation>[
+          GaugeAnnotation(
+            widget: Text(
+              '$value%',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            angle: 90,
+            positionFactor: 0.5,
+          )
+        ],
+      ),
+    ],
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {
